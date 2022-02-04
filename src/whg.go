@@ -6,6 +6,9 @@ import (
     "time"
 	"fmt"
     "io"
+    "crypto/sha256"
+    "encoding/hex"
+    "bytes"
 
     "github.com/aws/aws-sdk-go-v2/config"
     "github.com/aws/aws-sdk-go-v2/aws/signer/v4"
@@ -26,8 +29,40 @@ func main() {
     }
 
     // The signer requires a payload hash. This hash is for an empty payload.
-    hash := "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
-    req, _ := http.NewRequest(http.MethodGet, "https://dev-api.westhillglobal.com/project/0086FBJ/contractors-matched", nil)
+    var s = []byte(`{
+        "ClaimStatus": [
+          "Opened"
+        ],
+        "WHGClaimStatus": {
+          "Restoration": [
+            {
+              "name": "firstContact",
+              "completed": true
+            },
+            {
+              "name": "jobCompletion",
+              "completed": false
+            }
+          ],
+          "Mitigation": [
+            {
+              "name": "firstContact",
+              "completed": true
+            },
+            {
+              "name": "mitigationWorkComplete",
+              "completed": false
+            }
+          ]
+        }
+      }`)
+    h := sha256.New()
+    h.Write([]byte(s))
+    hash := hex.EncodeToString(h.Sum(nil))
+
+    fmt.Println(s, hash)
+    //req, _ := http.NewRequest(http.MethodGet, "https://dev-api.westhillglobal.com/project/0086FBJ/contractors-matched", nil)
+    req, _ := http.NewRequest(http.MethodPost, "https://apidev.westhillglobal.com/admin/allclaims", bytes.NewBuffer(s))
     signer := v4.NewSigner()
     err = signer.SignHTTP(context.TODO(), credentials, req, hash, "execute-api", cfg.Region, time.Now())
 
