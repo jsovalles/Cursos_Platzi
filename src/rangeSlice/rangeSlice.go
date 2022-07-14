@@ -1,11 +1,11 @@
-package main
+package rangeSlice
 
 import (
 	"fmt"
 	"strings"
 )
 
-func main() {
+func RangeSliceExample() {
 	slice := []string{"hola","que","hace"}
 
 	// _ se usa para escapar el indice

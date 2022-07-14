@@ -1,4 +1,4 @@
-package main
+package funciones
 
 import "fmt"
 
@@ -16,10 +16,4 @@ func returnValue(a int) int{
 
 func doubleReturn(a int) (c,d int) {
 	return a, a*2
-}
-
-func main() {
-	normalFunction("hello")
-	tripeArgument(1,2,"hmmm")
-	fmt.Println(doubleReturn(4))
 }

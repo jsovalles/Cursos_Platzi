@@ -1,8 +1,8 @@
-package main
+package arraySlice
 
 import "fmt"
 
-func main() {
+func ArraySliceExample() {
 	//Array
 	var array [4]int
 	array[0] = 1

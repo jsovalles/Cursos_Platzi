@@ -1,8 +1,8 @@
-package main
+package keywords
 
 import "fmt"
 
-func main() {
+func KeywordExample() {
 	//defer
 	// Se ejecuta de ultimas cuando todo el flujo halla sido recorrido
 	defer fmt.Println("hola")

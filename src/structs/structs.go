@@ -1,4 +1,4 @@
-package main
+package structs
 
 import "fmt"
 
@@ -7,7 +7,7 @@ type car struct {
 	year  int
 }
 
-func main() {
+func StructsExample() {
 
 	myCar := car{brand: "Ford", year: 2020}
 	fmt.Println(myCar)
